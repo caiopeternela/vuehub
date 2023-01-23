@@ -1,12 +1,28 @@
 <template>
   <div>
-    <v-autocomplete
+    <v-row class="text-center">
+      <v-col cols="6">
+        <v-autocomplete
         v-model="user"
-        :items="usersList"
-        :loading="loading"
+        :items="userList"
+        :loading="userLoading"
         :search-input.sync="search"
         item-text="login"
-    />
+        label="Select the user"
+        />
+      </v-col>
+      <v-col cols="6">
+        <v-select
+          v-model="repo"
+          :items="repoList"
+          :loading="repoLoading"
+          item-text="name"
+          label="Select the repo"
+          return-object
+          single-line
+          ></v-select>
+      </v-col>
+    </v-row>
   </div>
 </template>
 
@@ -18,20 +34,32 @@
     data: () => ({
       user: null,
       search: null,
-      usersList: [],
-      loading: false,
+      repo: null,
+      repoList: [],
+      userList: [],
+      userLoading: false,
+      repoLoading: false
     }),
     methods: {
       debouncedSearch: debounce(async function () { 
-        this.loading = true
+        this.userLoading = true
         const data = await api.searchUsers(this.search)
-        this.usersList = data.items
-        this.loading = false
-      }, 500)
+        this.userList = data.items
+        this.userLoading = false
+      }, 500),
+      async listRepos () {
+        this.repoLoading = true
+        const data = await api.listRepos(this.user)
+        this.repoList = data
+        this.repoLoading = false
+      }
     },
     watch: {
       search () {
         this.debouncedSearch()
+      },
+      user () {
+       this.listRepos()
       }
     }
   }
