@@ -28,7 +28,7 @@
 
 <script>
   import { debounce } from '@/helpers/debounce.js'
-  import { api } from '@/api/api.js'
+  import { api } from '~api'
 
   export default {
     data: () => ({

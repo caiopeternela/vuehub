@@ -7,11 +7,8 @@ export const api = {
     const response = await axios.get(`/search/users?q=${user}`)
     return response.data
   },
-  async listRepos (user, page) {
-    if (!page) {
-      page = 1
-    }
-    const response = await axios.get(`/users/${user}/repos?page=${page}`)
+  async listRepos (user) {
+    const response = await axios.get(`/users/${user}/repos`)
     return response.data
   }
 }
