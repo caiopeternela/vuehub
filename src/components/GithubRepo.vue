@@ -60,6 +60,9 @@
       },
       user () {
        this.listRepos()
+      },
+      repo () {
+        this.$emit('selectedRepo', this.repo)
       }
     }
   }

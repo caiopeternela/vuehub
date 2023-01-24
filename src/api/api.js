@@ -10,5 +10,9 @@ export const api = {
   async listRepos (user) {
     const response = await axios.get(`/users/${user}/repos`)
     return response.data
+  },
+  async listIssues (owner, name, page) {
+    const response = await axios.get(`/repos/${owner}/${name}/issues?page=${page}`)
+    return response.data
   }
 }
