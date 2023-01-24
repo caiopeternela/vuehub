@@ -15,11 +15,7 @@ export const api = {
     const response = await axios.get(`/repos/${owner}/${name}/issues?page=${page}`)
     return response.data
   },
-  async listContent (owner, repo) {
-    const response = await axios.get(`/repos/${owner}/${repo}/contents`)
-    return response.data
-  },
-  async contentPath(owner, repo, path) {
+  async listContent (owner, repo, path = '') {
     const response = await axios.get(`/repos/${owner}/${repo}/contents/${path}`)
     return response.data
   }

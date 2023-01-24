@@ -9,7 +9,16 @@
         :search-input.sync="search"
         item-text="login"
         label="Select the user"
-        />
+        >
+          <template v-slot:item="data">
+            <v-list-item-avatar>
+              <v-img :src="data.item.avatar_url"></v-img>
+            </v-list-item-avatar>
+            <v-list-item-content>
+              <v-list-item-title v-html="data.item.login"></v-list-item-title>
+            </v-list-item-content>
+          </template>
+        </v-autocomplete>
       </v-col>
       <v-col cols="6">
         <v-select
