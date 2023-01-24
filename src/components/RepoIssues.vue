@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-row>
-      <v-col cols="6">
+      <v-col>
         <h2>Issues</h2>
           <v-simple-table>
             <template v-slot:default>
@@ -19,10 +19,6 @@
               </tbody>
             </template>
         </v-simple-table>
-      </v-col>
-    </v-row>
-    <v-row>
-      <v-col cols="12">
         <v-progress-circular indeterminate color="primary" v-if="loading"></v-progress-circular>
         <v-btn color="primary" v-if="hasMore && !loading" @click="listIssues">+</v-btn>
       </v-col>
@@ -42,8 +38,10 @@
       currentPage: 1
     }),
     methods: {
-      async listIssues(){
-        this.loading = true
+      async listIssues (){
+        if (this.hasMore) {
+          this.loading = true
+        }
         const moreIssues = await api.listIssues(this.repo.owner.login, this.repo.name, this.currentPage)
         this.issues = this.issues.concat(moreIssues)
         this.currentPage++
@@ -52,7 +50,7 @@
       }
     },
     watch: {
-      repo(){
+      repo (){
         this.issues = []
         if (this.repo) {
           this.hasMore = false
