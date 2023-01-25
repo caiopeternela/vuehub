@@ -10,8 +10,7 @@ export const api = {
   async searchUsers (user) {
     const response = {
       items: [
-        {login: 'caio'},
-        {login: 'pedro'}
+        {login: 'caio'}
       ]
     }
     return later(response)
